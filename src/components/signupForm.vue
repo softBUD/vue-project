@@ -30,12 +30,14 @@
       <input
         type="text"
         v-model="tempSkill"
-        @change="addSkill"
+        @keyup="addSkill"
         class="border-b-slate-500 border-solid border-b-2 mt-3"
       />
     </form>
   </div>
-  <div>{{ skills }}</div>
+  <div>{{ email }}</div>
+  <div>{{ password }}</div>
+  <div>{{ `제 스킬은 :  ${skills}` }}</div>
 </template>
 <script>
 export default {
@@ -49,11 +51,14 @@ export default {
       skills: []
     }
   },
+  watch: {},
   methods: {
     addSkill($event) {
-      if (this.tempSkill) {
-        this.skills.push(this.tempSkill.slice(0, -1))
-        this.tempSkill = ''
+      if ($event.key === ',' && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill)) {
+          this.skills.push(this.tempSkill.slice(0, -1))
+          this.tempSkill = ''
+        }
       }
     }
   }
